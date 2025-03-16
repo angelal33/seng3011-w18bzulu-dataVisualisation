@@ -7,8 +7,6 @@ def visualisation(graphTitle, xHeader, yHeader, xData, yData):
     plt.xlabel(xHeader)
     plt.ylabel(yHeader)
     plt.title(graphTitle)
-    print("Saving visualisation to ./visualisations/" + graphTitle + ".png")
-    plt.savefig("./visualisations/" + graphTitle + ".png")
     buf = io.BytesIO()
     plt.savefig(buf, format="png", bbox_inches="tight")
     plt.close()
