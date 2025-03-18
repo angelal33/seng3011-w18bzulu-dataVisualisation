@@ -14,12 +14,12 @@ def visualisation():
     graphTitle = request.args.get('graphTitle')
     xHeader = request.args.get('x-header')
     yHeader = request.args.get('y-header')
-    xData = request.args.getlist('x-data')
+    xData = request.args.get('x-data').split(',')
+    yData = request.args.get('y-data').split(',')
     try:
-        yData = [float(item) for item in request.args.getlist('y-data')]
+        yData = [float(item) for item in yData]
     except:
         return Response("y-data must be a list of numbers", status=400)
-    print(graphTitle, xHeader, yHeader, xData, yData)
     image_base64 = pop_vis.visualisation(graphTitle, xHeader, yHeader, xData, yData)
     return {
         "statusCode": 200,
