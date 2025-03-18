@@ -59,7 +59,7 @@ jobs:
           
           # Update Lambda function to use this layer
           aws lambda update-function-configuration \
-            --function-name flask_lambda \
+            --function-name dataVisualisation \
             --layers $LAYER_VERSION
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
