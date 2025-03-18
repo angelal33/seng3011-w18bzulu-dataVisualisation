@@ -15,7 +15,7 @@ def visualisation():
     xHeader = request.args.get('x-header')
     yHeader = request.args.get('y-header')
     xData = request.args.getlist('x-data')
-    yData = request.args.getlist('y-data')
+    yData = [float(item) for item in request.args.getlist('y-data')]
     print(graphTitle, xHeader, yHeader, xData, yData)
     image_base64 = pop_vis.visualisation(graphTitle, xHeader, yHeader, xData, yData)
     return {
