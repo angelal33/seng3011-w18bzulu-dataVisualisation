@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, send_file, request
+from flask import Flask, jsonify, request
 import awsgi
 import population_visualisation as pop_vis
 import json
@@ -12,10 +12,10 @@ def home():
 @app.route("/population/visualisation/v1", methods=['GET'])
 def visualisation():
     graphTitle = request.args.get('graphTitle')
-    xHeader = request.args.get('xHeader')
-    yHeader = request.args.get('yHeader')
-    xData = request.args.getlist('xData')
-    yData = request.args.getlist('yData')
+    xHeader = request.args.get('x-header')
+    yHeader = request.args.get('y-header')
+    xData = request.args.getlist('x-data')
+    yData = request.args.getlist('y-data')
     print(graphTitle, xHeader, yHeader, xData, yData)
     image_base64 = pop_vis.visualisation(graphTitle, xHeader, yHeader, xData, yData)
     return {
