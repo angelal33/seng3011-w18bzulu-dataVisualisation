@@ -27,6 +27,7 @@ def visualisation():
         "headers": {"Content-Type": "application/json"}
     }
 
+# Function to pass lambda request to Flask app
 def lambda_handler(event, context):
     if 'httpMethod' not in event:
         if 'requestContext' in event and 'http' in event['requestContext']:
