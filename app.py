@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response
 import awsgi
 import population_visualisation as pop_vis
 import json
@@ -15,7 +15,10 @@ def visualisation():
     xHeader = request.args.get('x-header')
     yHeader = request.args.get('y-header')
     xData = request.args.getlist('x-data')
-    yData = [float(item) for item in request.args.getlist('y-data')]
+    try:
+        yData = [float(item) for item in request.args.getlist('y-data')]
+    except:
+        return Response("y-data must be a list of numbers", status=400)
     print(graphTitle, xHeader, yHeader, xData, yData)
     image_base64 = pop_vis.visualisation(graphTitle, xHeader, yHeader, xData, yData)
     return {
