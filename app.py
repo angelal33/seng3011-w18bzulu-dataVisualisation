@@ -18,7 +18,7 @@ def visualisation():
     yData = request.args.get('y-data').split(',')
     try:
         yData = [float(item) for item in yData]
-    except:
+    except (ValueError, TypeError, AttributeError):
         return Response("y-data must be a list of numbers", status=400)
     image_base64 = pop_vis.visualisation(graphTitle, xHeader, yHeader, xData, yData)
     return {
