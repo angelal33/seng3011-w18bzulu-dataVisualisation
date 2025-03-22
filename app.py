@@ -18,14 +18,14 @@ def visualisation():
     yData = request.args.get('y-data').split(',')
     try:
         yData = [float(item) for item in yData]
-        image_base64 = pop_vis.visualisation(graphTitle, xHeader, yHeader, xData, yData)
-        return {
-            "statusCode": 200,
-            "body": json.dumps({"image": image_base64}),
-            "headers": {"Content-Type": "application/json"}
-        }
-    except:
+    except (ValueError, TypeError, AttributeError):
         return Response("y-data must be a list of numbers", status=400)
+    image_base64 = pop_vis.visualisation(graphTitle, xHeader, yHeader, xData, yData)
+    return {
+        "statusCode": 200,
+        "body": json.dumps({"image": image_base64}),
+        "headers": {"Content-Type": "application/json"}
+    }
 
 # Function to pass lambda request to Flask app
 def lambda_handler(event, context):
