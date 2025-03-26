@@ -20,7 +20,7 @@ def visualisation():
         yData = [float(item) for item in yData]
     except (ValueError, TypeError, AttributeError):
         return Response("y-data must be a list of numbers", status=400)
-    image_base64 = pop_vis.visualisation(graphTitle, xHeader, yHeader, xData, yData)
+    image_base64 = pop_vis.bar_chart_visualisation(graphTitle, xHeader, yHeader, xData, yData)
     return {
         "statusCode": 200,
         "body": json.dumps({"image": image_base64}),
