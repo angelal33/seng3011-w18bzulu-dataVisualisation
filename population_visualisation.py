@@ -57,6 +57,9 @@ def multi_line_chart_visualisation(
     error = check_line_chart_data(labels, xData, yData)
     if error:
         raise error
+    if not (graphTitle and xHeader and yHeader):
+        raise ValueError("graphTitle, xHeader, and yHeader must not be empty")
+
     if len(yData) > max_y:
         raise ValueError(f"yData must not have more than {max_y} items")
 
