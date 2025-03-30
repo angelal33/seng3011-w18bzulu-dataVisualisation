@@ -24,7 +24,7 @@ def visualisation():
     yData = split_data(request.args.get('y-data'))
     try:
         yData = [float(item) for item in yData]
-    except:
+    except (ValueError, TypeError, AttributeError):
         return Response("y-data must be a list of numbers", status=400)
     
     try:
@@ -40,6 +40,7 @@ def visualisation():
         "headers": {"Content-Type": "application/json"}
     }
 
+# Function to pass lambda request to Flask app
 def lambda_handler(event, context):
     if 'httpMethod' not in event:
         if 'requestContext' in event and 'http' in event['requestContext']:
