@@ -53,15 +53,12 @@ def check_line_chart_data(labels, xData, yData, otherData={}):
         error = check_bar_chart_data(xData, yData[i])
         if error:
             raise error
-    return None
 
 
 def multi_line_chart_visualisation(
     graphTitle, xHeader, yHeader, labels, xData, yData, max_y=3
 ):
-    error = check_line_chart_data(labels, xData, yData, {"graphTitle": graphTitle, "xHeader": xHeader, "yHeader": yHeader})
-    if error:
-        raise error
+    check_line_chart_data(labels, xData, yData, {"graphTitle": graphTitle, "xHeader": xHeader, "yHeader": yHeader})
     if not (graphTitle and xHeader and yHeader):
         raise ValueError("graphTitle, xHeader, and yHeader must not be empty")
 
