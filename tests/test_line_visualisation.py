@@ -21,7 +21,7 @@ def sample_data():
         "yHeader": "Population",
         "xData": ["2022", "2023", "2024", "2025", "2026"],
         "yData": [[1000, 2000, 3000, 4000, 5000], [1500, 2500, 3500, 4500, 5500]],
-        "labels": ["Country A", "Country B"],
+        "labels": ["Suburb A", "Suburb B"],
     }
 
 
@@ -48,9 +48,9 @@ def test_visualisation_different_data():
         "Sample Test Data",
         "Year",
         "Population",
+        labels=["Suburb C", "Suburb D"],
         xData=["2050", "2060", "2070", "2071"],
         yData=[[1200.5, 1500.75, 1800.0, 2100.25], [1300.5, 1600.75, 1900.0, 2200.25]],
-        labels=["Country C", "Country D"],
     )
     assert isinstance(result, str)
     assert len(result) > 0
@@ -59,7 +59,7 @@ def test_visualisation_different_data():
 def test_visualisation_single_data_point():
     """Test with a single data point."""
     result = multi_line_chart_visualisation(
-        "Single Point", "Year", "Population", ["Country E"], ["2022"], [[1000.0]]
+        "Single Point", "Year", "Population", ["Suburb E"], ["2022"], [[1000.0]]
     )
     assert isinstance(result, str)
     assert len(result) > 0
@@ -76,7 +76,7 @@ def test_visualisation_different_data_produces_different_images():
         "Sample Test Data",
         "Year",
         "Population",
-        ["Country A", "Country B"],
+        ["Suburb A", "Suburb B"],
         ["2022", "2023", "2024", "2025", "2026"],
         [[1000, 2000, 3000, 4000, 5000], [1500, 2500, 3500, 4500, 5500]],
     )
@@ -84,7 +84,7 @@ def test_visualisation_different_data_produces_different_images():
         "Sample Test Data",
         "Year",
         "Population",
-        ["Country C", "Country D"],
+        ["Suburb C", "Suburb D"],
         ["2027", "2028", "2029", "2030", "2031"],
         [[1100, 2100, 3100, 4100, 5100], [1600, 2600, 3600, 4600, 5600]],
     )
@@ -97,7 +97,7 @@ def test_visualisation_invalid_xData():
             "Invalid Data",
             "Year",
             "Population",
-            ["Country F", "Coutry G"],
+            ["Suburb F", "Suburb G"],
             [2002],
             [[1000.0], [2000.0]],
         )
@@ -108,7 +108,7 @@ def test_visualisation_invalid_yData():
             "Invalid Data",
             "Year",
             "Population",
-            ["Country H", "Country I"],
+            ["Suburb H", "Suburb I"],
             ["2022", "2023"],
             [[1000.0, 2000.0], [3000.0]],
         )
@@ -117,7 +117,7 @@ def test_visualisation_invalid_yData():
             "Invalid Data",
             "Year",
             "Population",
-            ["Country J", "Country K"],
+            ["Suburb J", "Suburb K"],
             ["2022", "2023"],
             [[100,200], ["1000","2000"]],
         )
@@ -129,7 +129,7 @@ def test_visualisation_too_many_yData():
             "Too Many yData",
             "Year",
             "Population",
-            ["Country L", "Country M", "Country N", "Country O"],
+            ["Suburb L", "Suburb M", "Suburb N", "Suburb O"],
             ["2022", "2023"],
             [[1000.0, 2000.0], [3000.0, 4000.0], [5000.0, 6000.0], [7000.0, 8000.0]],
         )
