@@ -1,4 +1,3 @@
-import matplotlib
 import matplotlib.pyplot as plt
 import io
 import base64
@@ -24,7 +23,7 @@ def check_bar_chart_data(xData, yData, otherData={}):
     return None
 
 def bar_chart_visualisation(graphTitle, xHeader, yHeader, xData, yData):
-    error = check_bar_chart_data(xData, yData, {graphTitle, xHeader, yHeader})
+    error = check_bar_chart_data(xData, yData, {"graphTitle": graphTitle, "xHeader": xHeader, "yHeader": yHeader})
     if error:
         raise error
     plt.bar(xData, yData)
