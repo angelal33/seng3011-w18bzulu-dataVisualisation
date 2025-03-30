@@ -76,25 +76,25 @@ def test_visualisation_different_data_produces_different_images():
 
 # CAN BE ADDED IN WHEN ERROR CHECKING IS ADDED TO VISUALISATION.
 
-# def test_visualisation_empty_data(sample_data):
-#     """Test with empty data."""
-#     with pytest.raises(ValueError):
-#         visualisation(sample_data["graphTitle"], sample_data["xHeader"], sample_data["yHeader"], [], [])
+def test_visualisation_empty_data(sample_data):
+    """Test with empty data."""
+    with pytest.raises(ValueError):
+        bar_chart_visualisation(sample_data["graphTitle"], sample_data["xHeader"], sample_data["yHeader"], [], [])
 
 
-# def test_visualisation_mismatched_data_lengths():
-#     """Test with mismatched x and y data lengths."""
-#     with pytest.raises(ValueError):
-#         visualisation("Mismatched Data", "X", "Y", ["2022", "2023"], [1000.0])
+def test_visualisation_mismatched_data_lengths():
+    """Test with mismatched x and y data lengths."""
+    with pytest.raises(ValueError):
+        bar_chart_visualisation("Mismatched Data", "X", "Y", ["2022", "2023"], [1000.0])
 
 
-# def test_visualisation_handles_non_numeric_ydata(sample_data):
-#     """Test that non-numeric y-data raises an exception."""
-#     with pytest.raises(ValueError):
-#         visualisation(
-#             sample_data["graphTitle"],
-#             sample_data["xHeader"],
-#             sample_data["yHeader"],
-#             sample_data["xData"],
-#             ["a", "b", "c", "d", "e"]
-#         )
+def test_visualisation_handles_non_numeric_ydata(sample_data):
+    """Test that non-numeric y-data raises an exception."""
+    with pytest.raises(ValueError):
+        bar_chart_visualisation(
+            sample_data["graphTitle"],
+            sample_data["xHeader"],
+            sample_data["yHeader"],
+            sample_data["xData"],
+            ["a", "b", "c", "d", "e"]
+        )
