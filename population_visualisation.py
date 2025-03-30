@@ -2,9 +2,14 @@ import matplotlib.pyplot as plt
 import io
 import base64
 
+
 def check_bar_chart_data(xData, yData):
-    if xData in [[], None] or yData in [[], None] \
-    or not isinstance(xData, list) or not isinstance(yData, list):
+    if (
+        xData in [[], None]
+        or yData in [[], None]
+        or not isinstance(xData, list)
+        or not isinstance(yData, list)
+    ):
         return ValueError("xData and yData must not be empty")
     elif len(xData) != len(yData):
         return ValueError("xData and yData must have the same length")
@@ -13,6 +18,7 @@ def check_bar_chart_data(xData, yData):
     elif not all(isinstance(item, (int, float)) for item in yData):
         return ValueError("yData must be a list of numbers")
     return None
+
 
 def bar_chart_visualisation(graphTitle, xHeader, yHeader, xData, yData):
     error = check_bar_chart_data(xData, yData)
@@ -29,23 +35,25 @@ def bar_chart_visualisation(graphTitle, xHeader, yHeader, xData, yData):
     buf.seek(0)
     return base64.b64encode(buf.read()).decode("utf-8")
 
+
 def check_line_chart_data(labels, xData, yData):
     if len(labels) != len(yData):
         raise ValueError("labels and yData must have the same length")
     elif len(labels) == 0 or len(xData) == 0 or len(yData) == 0:
-        raise ValueError(f"""{", " if len(labels) == 0 else ""} {"xData, " if len(xData) == 0 else ""} 
-                         and {"yData, " if len(yData) == 0 else ""} must not be empty""")
-    error = check_bar_chart_data(xData, yData[0])
-    if error:
-        raise error
+        raise ValueError(
+            f"{'labels, ' if len(labels) == 0 else ''}{'xData, ' if len(xData) == 0 else ''}"
+            + f"{'yData, ' if len(yData) == 0 else ''}must not be empty"
+        )
     for i in range(len(yData)):
-        if len(yData[i]) != len(xData):
-            raise ValueError("yData must have the same length as xData")
-        elif not all(isinstance(item, (int, float)) for item in yData[i]):
-            raise ValueError("yData must be a list of numbers")
+        error = check_bar_chart_data(xData, yData[i])
+        if error:
+            raise error
     return None
 
-def multi_line_chart_visualisation(graphTitle, xHeader, yHeader, labels, xData, yData, max_y=3):
+
+def multi_line_chart_visualisation(
+    graphTitle, xHeader, yHeader, labels, xData, yData, max_y=3
+):
     error = check_line_chart_data(labels, xData, yData)
     if error:
         raise error
