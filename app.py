@@ -20,8 +20,8 @@ def visualisation():
     graphTitle = request.args.get("graphTitle")
     xHeader = request.args.get("x-header")
     yHeader = request.args.get("y-header")
-    xData = request.args.get("x-data").split(",")
-    yData = request.args.get("y-data").split(",")
+    xData = split_data(request.args.get("x-data"))
+    yData = split_data(request.args.get("y-data"))
     try:
         yData = [float(item) for item in yData]
     except (ValueError, TypeError, AttributeError):
