@@ -2,8 +2,11 @@ import matplotlib.pyplot as plt
 import io
 import base64
 
-
-def check_bar_chart_data(xData, yData):
+# otherData is [graphTitle, xHeader, yHeader]
+def check_bar_chart_data(xData, yData, otherData={}):
+    for item in otherData.keys():
+        if not otherData[item]:
+            return ValueError(f"{item} must not be empty")
     if (
         xData in [[], None]
         or yData in [[], None]
@@ -19,9 +22,8 @@ def check_bar_chart_data(xData, yData):
         return ValueError("yData must be a list of numbers")
     return None
 
-
 def bar_chart_visualisation(graphTitle, xHeader, yHeader, xData, yData):
-    error = check_bar_chart_data(xData, yData)
+    error = check_bar_chart_data(xData, yData, {"graphTitle": graphTitle, "xHeader": xHeader, "yHeader": yHeader})
     if error:
         raise error
     plt.bar(xData, yData)
@@ -36,7 +38,10 @@ def bar_chart_visualisation(graphTitle, xHeader, yHeader, xData, yData):
     return base64.b64encode(buf.read()).decode("utf-8")
 
 
-def check_line_chart_data(labels, xData, yData):
+def check_line_chart_data(labels, xData, yData, otherData={}):
+    for item in otherData.keys():
+        if not otherData[item]:
+            raise ValueError(f"{item} must not be empty")
     if len(labels) != len(yData):
         raise ValueError("labels and yData must have the same length")
     elif len(labels) == 0 or len(xData) == 0 or len(yData) == 0:
@@ -54,7 +59,7 @@ def check_line_chart_data(labels, xData, yData):
 def multi_line_chart_visualisation(
     graphTitle, xHeader, yHeader, labels, xData, yData, max_y=3
 ):
-    error = check_line_chart_data(labels, xData, yData)
+    error = check_line_chart_data(labels, xData, yData, {"graphTitle": graphTitle, "xHeader": xHeader, "yHeader": yHeader})
     if error:
         raise error
     if not (graphTitle and xHeader and yHeader):
