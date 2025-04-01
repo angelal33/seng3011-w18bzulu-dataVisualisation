@@ -8,7 +8,7 @@ parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.append(parent_dir)
 
 try:
-    from population_visualisation import visualisation
+    from population_visualisation import bar_chart_visualisation as visualisation
 except ImportError:
     pytest.skip("Could not import visualisation", allow_module_level=True)
 
@@ -76,25 +76,25 @@ def test_visualisation_different_data_produces_different_images():
 
 # CAN BE ADDED IN WHEN ERROR CHECKING IS ADDED TO VISUALISATION.
 
-# def test_visualisation_empty_data(sample_data):
-#     """Test with empty data."""
-#     with pytest.raises(ValueError):
-#         visualisation(sample_data["graphTitle"], sample_data["xHeader"], sample_data["yHeader"], [], [])
+def test_visualisation_empty_data(sample_data):
+    """Test with empty data."""
+    with pytest.raises(ValueError):
+        visualisation(sample_data["graphTitle"], sample_data["xHeader"], sample_data["yHeader"], [], [])
 
 
-# def test_visualisation_mismatched_data_lengths():
-#     """Test with mismatched x and y data lengths."""
-#     with pytest.raises(ValueError):
-#         visualisation("Mismatched Data", "X", "Y", ["2022", "2023"], [1000.0])
+def test_visualisation_mismatched_data_lengths():
+    """Test with mismatched x and y data lengths."""
+    with pytest.raises(ValueError):
+        visualisation("Mismatched Data", "X", "Y", ["2022", "2023"], [1000.0])
 
 
-# def test_visualisation_handles_non_numeric_ydata(sample_data):
-#     """Test that non-numeric y-data raises an exception."""
-#     with pytest.raises(ValueError):
-#         visualisation(
-#             sample_data["graphTitle"],
-#             sample_data["xHeader"],
-#             sample_data["yHeader"],
-#             sample_data["xData"],
-#             ["a", "b", "c", "d", "e"]
-#         )
+def test_visualisation_handles_non_numeric_ydata(sample_data):
+    """Test that non-numeric y-data raises an exception."""
+    with pytest.raises(ValueError):
+        visualisation(
+            sample_data["graphTitle"],
+            sample_data["xHeader"],
+            sample_data["yHeader"],
+            sample_data["xData"],
+            ["a", "b", "c", "d", "e"]
+        )
