@@ -36,3 +36,44 @@ def bar_chart_visualisation(graphTitle, xHeader, yHeader, xData, yData):
 
     buf.seek(0)
     return base64.b64encode(buf.read()).decode("utf-8")
+
+
+def check_line_chart_data(labels, xData, yData, otherData={}):
+    for item in otherData.keys():
+        if not otherData[item]:
+            raise ValueError(f"{item} must not be empty")
+    if len(labels) != len(yData):
+        raise ValueError("labels and yData must have the same length")
+    elif len(labels) == 0 or len(xData) == 0 or len(yData) == 0:
+        raise ValueError(
+            f"{'labels, ' if len(labels) == 0 else ''}{'xData, ' if len(xData) == 0 else ''}"
+            + f"{'yData, ' if len(yData) == 0 else ''}must not be empty"
+        )
+    for i in range(len(yData)):
+        error = check_bar_chart_data(xData, yData[i])
+        if error:
+            raise error
+
+
+def multi_line_chart_visualisation(
+    graphTitle, xHeader, yHeader, labels, xData, yData, max_y=3
+):
+    check_line_chart_data(labels, xData, yData, {"graphTitle": graphTitle, "xHeader": xHeader, "yHeader": yHeader})
+    if not (graphTitle and xHeader and yHeader):
+        raise ValueError("graphTitle, xHeader, and yHeader must not be empty")
+
+    if len(yData) > max_y:
+        raise ValueError(f"yData must not have more than {max_y} items")
+
+    for i in range(len(labels)):
+        plt.plot(xData, yData[i], label=labels[i])
+    plt.xlabel(xHeader)
+    plt.ylabel(yHeader)
+    plt.title(graphTitle)
+    plt.legend()
+    buf = io.BytesIO()
+    plt.savefig(buf, format="png", bbox_inches="tight")
+    plt.close()
+
+    buf.seek(0)
+    return base64.b64encode(buf.read()).decode("utf-8")
