@@ -1,39 +1,40 @@
-# from moto import mock_aws
-# from moto import mock_lambda
-# from moto.awslambda.models import LambdaModel
-# from moto.awslambda.exceptions import LambdaException
 import pytest
 import requests
 import json
+import os
+import sys
 
-# # @mock_aws(config={"lambda": {"use_docker": False}})
+# Add the parent directory to sys.path so we can import visualisation.py
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.append(parent_dir)
 
-# mock_lambda = mock_lambda()
-# @mock_lambda
-# def test_lambda_function():
-#     """Test the Lambda function."""
-#     # Mock the Lambda function
-#     lambda_client = LambdaModel()
-#     lambda_client.create_function(
-#         FunctionName="test_lambda_function",
-#         Runtime="python3.8",
-#         Role="role",
-#         Handler="app.lambda_handler",
-#         Code={
-#             "ZipFile": b"def lambda_handler(event, context): return {'statusCode': 200, 'body': 'Hello from Lambda!'}"
-#         },
-#     )
+try:
+    from app import app as app_imp
+except ImportError:
+    pytest.skip("Could not import flask", allow_module_level=True)
 
-#     # Invoke the Lambda function
-#     response = lambda_client.invoke(FunctionName="test_lambda_function")
-#     assert response["StatusCode"] == 200
-#     assert response["Payload"].read() == b"Hello from Lambda!"
+@pytest.fixture()
+def app():
+    app = app_imp
+    app.config.update({
+        "TESTING": True,
+    })
+
+    yield app
+
+@pytest.fixture()
+def client(app):
+    return app.test_client()
 
 
-def test_single_suburb():
-    resp = requests.get(
-      "https://f8jc59emd2.execute-api.us-east-1.amazonaws.com/dev/population/visualisation/v1",
-      params={
+@pytest.fixture()
+def runner(app):
+    return app.test_cli_runner()
+
+def test_single_suburb(client):
+    resp = client.get(
+      "/population/visualisation/v1",
+      query_string={
         "graphTitle": "Sample Test Data",
         "x-header": "Year",
         "y-header": "Population",
@@ -42,12 +43,12 @@ def test_single_suburb():
       }
     )
     assert resp.status_code == 200
-    result = json.loads(resp.json()['body'])
+    result = json.loads(resp.json['body'])
     assert "image" in result
     assert isinstance(result["image"], str)
     assert len(result["image"]) > 0, "Base64 encoded image should not be empty"
 
-def test_multiple_suburb():
+def test_multiple_suburb(client):
     data = {
         "graphTitle": "Sample Test Data",
         "x-header": "Year",
@@ -60,12 +61,12 @@ def test_multiple_suburb():
     data["x-data"] = ",".join(data["x-data"])
     data["labels"] = ",".join(data["labels"])
 
-    resp = requests.get(
-      "https://f8jc59emd2.execute-api.us-east-1.amazonaws.com/dev/populations/visualisation/v1",
-      params=data
+    resp = client.get(
+      "/populations/visualisation/v1",
+      query_string=data
     )
     assert resp.status_code == 200
-    result = json.loads(resp.json()['body'])
+    result = json.loads(resp.json['body'])
     assert "image" in result
     assert isinstance(result["image"], str)
     assert len(result["image"]) > 0, "Base64 encoded image should not be empty"
