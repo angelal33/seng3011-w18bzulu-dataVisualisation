@@ -1,8 +1,8 @@
 import pytest
-import requests
 import json
 import os
 import sys
+import base64
 
 # Add the parent directory to sys.path so we can import visualisation.py
 parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -47,6 +47,10 @@ def test_single_suburb(client):
     assert "image" in result
     assert isinstance(result["image"], str)
     assert len(result["image"]) > 0, "Base64 encoded image should not be empty"
+    try:
+        base64.b64decode(result["image"])
+    except Exception:
+        pytest.fail("Result is not valid base64-encoded data.")
 
 def test_multiple_suburb(client):
     data = {
@@ -70,3 +74,7 @@ def test_multiple_suburb(client):
     assert "image" in result
     assert isinstance(result["image"], str)
     assert len(result["image"]) > 0, "Base64 encoded image should not be empty"
+    try:
+        base64.b64decode(result["image"])
+    except Exception:
+        pytest.fail("Result is not valid base64-encoded data.")
