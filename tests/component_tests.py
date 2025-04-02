@@ -31,28 +31,18 @@ def client(app):
 def runner(app):
     return app.test_cli_runner()
 
-def test_single_suburb(client):
-    resp = client.get(
-      "/population/visualisation/v1",
-      query_string={
+@pytest.fixture()
+def sample_single():
+    return {
         "graphTitle": "Sample Test Data",
         "x-header": "Year",
         "y-header": "Population",
         "x-data": ','.join(["2022", "2023", "2024", "2025", "2026"]),
         "y-data": ','.join(str(x) for x in [1000, 2000, 3000, 4000, 5000])
-      }
-    )
-    assert resp.status_code == 200
-    result = json.loads(resp.json['body'])
-    assert "image" in result
-    assert isinstance(result["image"], str)
-    assert len(result["image"]) > 0, "Base64 encoded image should not be empty"
-    try:
-        base64.b64decode(result["image"])
-    except Exception:
-        pytest.fail("Result is not valid base64-encoded data.")
+    }
 
-def test_multiple_suburb(client):
+@pytest.fixture()
+def sample_multi():
     data = {
         "graphTitle": "Sample Test Data",
         "x-header": "Year",
@@ -64,10 +54,27 @@ def test_multiple_suburb(client):
     data["y-data"] = ",".join([('-').join(str(x) for x in i) for i in data["y-data"]])
     data["x-data"] = ",".join(data["x-data"])
     data["labels"] = ",".join(data["labels"])
+    return data
 
+def test_single_suburb(client, sample_single):
+    resp = client.get(
+      "/population/visualisation/v1",
+      query_string=sample_single
+    )
+    assert resp.status_code == 200
+    result = json.loads(resp.json['body'])
+    assert "image" in result
+    assert isinstance(result["image"], str)
+    assert len(result["image"]) > 0, "Base64 encoded image should not be empty"
+    try:
+        base64.b64decode(result["image"])
+    except Exception:
+        pytest.fail("Result is not valid base64-encoded data.")
+
+def test_multiple_suburb(client, sample_multi):
     resp = client.get(
       "/populations/visualisation/v1",
-      query_string=data
+      query_string=sample_multi
     )
     assert resp.status_code == 200
     result = json.loads(resp.json['body'])
