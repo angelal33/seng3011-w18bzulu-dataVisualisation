@@ -87,11 +87,19 @@ def test_visualisation_different_data_produces_different_images():
 
 def test_visualisation_empty_data(sample_data):
     """Test with empty data."""
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="xData and yData must not be empty"):
         bar_chart_visualisation(
             sample_data["graphTitle"],
             sample_data["xHeader"],
             sample_data["yHeader"],
+            [],
+            [],
+        )
+    with pytest.raises(ValueError, match="graphTitle must not be empty"):
+        bar_chart_visualisation(
+            "",
+            "",
+            "",
             [],
             [],
         )
@@ -99,15 +107,15 @@ def test_visualisation_empty_data(sample_data):
 
 def test_visualisation_bad_data(sample_data):
     """Test with bad data."""
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="xData must be a list of strings"):
         bar_chart_visualisation(
             sample_data["graphTitle"],
             sample_data["xHeader"],
             sample_data["yHeader"],
-            [2022, 2023],
+            [2022, 2023, 2024, 2025, 2026],
             sample_data["yData"],
         )
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="yData must be a list of numbers"):
         bar_chart_visualisation(
             sample_data["graphTitle"],
             sample_data["xHeader"],
@@ -119,13 +127,13 @@ def test_visualisation_bad_data(sample_data):
 
 def test_visualisation_mismatched_data_lengths():
     """Test with mismatched x and y data lengths."""
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="xData and yData must have the same length"):
         bar_chart_visualisation("Mismatched Data", "X", "Y", ["2022", "2023"], [1000.0])
 
 
 def test_visualisation_handles_non_numeric_ydata(sample_data):
     """Test that non-numeric y-data raises an exception."""
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="yData must be a list of numbers"):
         bar_chart_visualisation(
             sample_data["graphTitle"],
             sample_data["xHeader"],
