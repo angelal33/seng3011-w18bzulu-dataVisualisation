@@ -1,0 +1,783 @@
+{
+	"info": {
+		"_postman_id": "5aaf8faa-201f-45b0-a579-a1468d83bf66",
+		"name": "ZULU_visualisation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43635246",
+		"_collection_link": "https://callum-4899299.postman.co/workspace/Callum's-Workspace~385a68d0-313f-4fd9-8da3-c6986172f8bc/collection/43635246-5aaf8faa-201f-45b0-a579-a1468d83bf66?action=share&source=collection_link&creator=43635246"
+	},
+	"item": [
+		{
+			"name": "population/visualisation/v1",
+			"item": [
+				{
+					"name": "200: OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://f8jc59emd2.execute-api.us-east-1.amazonaws.com/dev/population/visualisation/v1?graphTitle=Liverpool%20Population%20Projection&x-header=Years&y-header=Population&x-data=2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046,2051,2056,2061,2066&y-data=233912.19,239378.05,253279.83,261590.12,268915.72,276669.6,283950.03,290719.88,296212.44,301936.4,306509.47,337515.97,362980.3,383363.03,403680.66,423720.8,444072.1,464514.25",
+							"protocol": "https",
+							"host": [
+								"f8jc59emd2",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"population",
+								"visualisation",
+								"v1"
+							],
+							"query": [
+								{
+									"key": "graphTitle",
+									"value": "Liverpool%20Population%20Projection"
+								},
+								{
+									"key": "x-header",
+									"value": "Years"
+								},
+								{
+									"key": "y-header",
+									"value": "Population"
+								},
+								{
+									"key": "x-data",
+									"value": "2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046,2051,2056,2061,2066"
+								},
+								{
+									"key": "y-data",
+									"value": "233912.19,239378.05,253279.83,261590.12,268915.72,276669.6,283950.03,290719.88,296212.44,301936.4,306509.47,337515.97,362980.3,383363.03,403680.66,423720.8,444072.1,464514.25"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400: xData and yData length",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"x-Data and y-Data length\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.expect(pm.response.text()).to.eql(\"xData and yData must have the same length\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://f8jc59emd2.execute-api.us-east-1.amazonaws.com/dev/population/visualisation/v1?graphTitle=Liverpool%20Population%20Projection&x-header=Years&y-header=Population&x-data=2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046,2051,2056,2061,2066&y-data=233912.19,239378.05,253279.83,261590.12,268915.72,276669.6,283950.03,290719.88,296212.44,301936.4,306509.47,337515.97,362980.3,383363.03,403680.66,423720.8,444072.1",
+							"protocol": "https",
+							"host": [
+								"f8jc59emd2",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"population",
+								"visualisation",
+								"v1"
+							],
+							"query": [
+								{
+									"key": "graphTitle",
+									"value": "Liverpool%20Population%20Projection"
+								},
+								{
+									"key": "x-header",
+									"value": "Years"
+								},
+								{
+									"key": "y-header",
+									"value": "Population"
+								},
+								{
+									"key": "x-data",
+									"value": "2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046,2051,2056,2061,2066"
+								},
+								{
+									"key": "y-data",
+									"value": "233912.19,239378.05,253279.83,261590.12,268915.72,276669.6,283950.03,290719.88,296212.44,301936.4,306509.47,337515.97,362980.3,383363.03,403680.66,423720.8,444072.1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400: Y-Data must be a list of numbers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Y-data must be a list of numbers\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.expect(pm.response.text()).to.eql(\"y-data must be a list of numbers\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://f8jc59emd2.execute-api.us-east-1.amazonaws.com/dev/population/visualisation/v1?graphTitle=Liverpool%20Population%20Projection&x-header=Years&y-header=Population&x-data=2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046,2051,2056,2061,2066&y-data=233912.19,239378.05,253279.83,261590.12,268915.72,276669.6,283950.03,290719.88,296212.44,301936.4,306509.47,337515.97,362980.3,383363.03,403680.66,423720.8,444072.1,number",
+							"protocol": "https",
+							"host": [
+								"f8jc59emd2",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"population",
+								"visualisation",
+								"v1"
+							],
+							"query": [
+								{
+									"key": "graphTitle",
+									"value": "Liverpool%20Population%20Projection"
+								},
+								{
+									"key": "x-header",
+									"value": "Years"
+								},
+								{
+									"key": "y-header",
+									"value": "Population"
+								},
+								{
+									"key": "x-data",
+									"value": "2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046,2051,2056,2061,2066"
+								},
+								{
+									"key": "y-data",
+									"value": "233912.19,239378.05,253279.83,261590.12,268915.72,276669.6,283950.03,290719.88,296212.44,301936.4,306509.47,337515.97,362980.3,383363.03,403680.66,423720.8,444072.1,number"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400: Missing graphTitle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Missing graphTitle\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.expect(pm.response.text()).to.eql(\"graphTitle must not be empty\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://f8jc59emd2.execute-api.us-east-1.amazonaws.com/dev/population/visualisation/v1?x-header=Years&y-header=Population&x-data=2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046,2051,2056,2061,2066&y-data=233912.19,239378.05,253279.83,261590.12,268915.72,276669.6,283950.03,290719.88,296212.44,301936.4,306509.47,337515.97,362980.3,383363.03,403680.66,423720.8,444072.1,464514.25",
+							"protocol": "https",
+							"host": [
+								"f8jc59emd2",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"population",
+								"visualisation",
+								"v1"
+							],
+							"query": [
+								{
+									"key": "x-header",
+									"value": "Years"
+								},
+								{
+									"key": "y-header",
+									"value": "Population"
+								},
+								{
+									"key": "x-data",
+									"value": "2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046,2051,2056,2061,2066"
+								},
+								{
+									"key": "y-data",
+									"value": "233912.19,239378.05,253279.83,261590.12,268915.72,276669.6,283950.03,290719.88,296212.44,301936.4,306509.47,337515.97,362980.3,383363.03,403680.66,423720.8,444072.1,464514.25"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400: Missing x-header",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Missing x-header\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.expect(pm.response.text()).to.eql(\"xHeader must not be empty\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://f8jc59emd2.execute-api.us-east-1.amazonaws.com/dev/population/visualisation/v1?graphTitle=Liverpool%20Population%20Projection&y-header=Population&x-data=2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046,2051,2056,2061,2066&y-data=233912.19,239378.05,253279.83,261590.12,268915.72,276669.6,283950.03,290719.88,296212.44,301936.4,306509.47,337515.97,362980.3,383363.03,403680.66,423720.8,444072.1,464514.25",
+							"protocol": "https",
+							"host": [
+								"f8jc59emd2",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"population",
+								"visualisation",
+								"v1"
+							],
+							"query": [
+								{
+									"key": "graphTitle",
+									"value": "Liverpool%20Population%20Projection"
+								},
+								{
+									"key": "y-header",
+									"value": "Population"
+								},
+								{
+									"key": "x-data",
+									"value": "2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046,2051,2056,2061,2066"
+								},
+								{
+									"key": "y-data",
+									"value": "233912.19,239378.05,253279.83,261590.12,268915.72,276669.6,283950.03,290719.88,296212.44,301936.4,306509.47,337515.97,362980.3,383363.03,403680.66,423720.8,444072.1,464514.25"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400: Missing y-header",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Missing y-header\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.expect(pm.response.text()).to.eql(\"yHeader must not be empty\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://f8jc59emd2.execute-api.us-east-1.amazonaws.com/dev/population/visualisation/v1?graphTitle=Liverpool%20Population%20Projection&x-header=Years&x-data=2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046,2051,2056,2061,2066&y-data=233912.19,239378.05,253279.83,261590.12,268915.72,276669.6,283950.03,290719.88,296212.44,301936.4,306509.47,337515.97,362980.3,383363.03,403680.66,423720.8,444072.1,464514.25",
+							"protocol": "https",
+							"host": [
+								"f8jc59emd2",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"population",
+								"visualisation",
+								"v1"
+							],
+							"query": [
+								{
+									"key": "graphTitle",
+									"value": "Liverpool%20Population%20Projection"
+								},
+								{
+									"key": "x-header",
+									"value": "Years"
+								},
+								{
+									"key": "x-data",
+									"value": "2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046,2051,2056,2061,2066"
+								},
+								{
+									"key": "y-data",
+									"value": "233912.19,239378.05,253279.83,261590.12,268915.72,276669.6,283950.03,290719.88,296212.44,301936.4,306509.47,337515.97,362980.3,383363.03,403680.66,423720.8,444072.1,464514.25"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "populations/visualisation/v1",
+			"item": [
+				{
+					"name": "200: OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://f8jc59emd2.execute-api.us-east-1.amazonaws.com/dev/populations/visualisation/v1?graphTitle=Population%20Growth%20Trends\n&x-header=Year\n&y-header=Population\n&labels=Armidale,Liverpool\n&x-data=2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046\n&y-data=28705.0-28678.184-28723.336-28770.135-28810.877-28858.014-28900.588-28941.607-28980.953-29018.727-29055.068-29214.72-29339.824-29577.436,233912.19-239378.05-253279.83-261590.12-268915.72-276669.6-283950.03-290719.88-296212.44-301936.4-306509.47-337515.97-362980.3-383363.03\n",
+							"protocol": "https",
+							"host": [
+								"f8jc59emd2",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"populations",
+								"visualisation",
+								"v1"
+							],
+							"query": [
+								{
+									"key": "graphTitle",
+									"value": "Population%20Growth%20Trends\n"
+								},
+								{
+									"key": "x-header",
+									"value": "Year\n"
+								},
+								{
+									"key": "y-header",
+									"value": "Population\n"
+								},
+								{
+									"key": "labels",
+									"value": "Armidale,Liverpool\n"
+								},
+								{
+									"key": "x-data",
+									"value": "2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046\n"
+								},
+								{
+									"key": "y-data",
+									"value": "28705.0-28678.184-28723.336-28770.135-28810.877-28858.014-28900.588-28941.607-28980.953-29018.727-29055.068-29214.72-29339.824-29577.436,233912.19-239378.05-253279.83-261590.12-268915.72-276669.6-283950.03-290719.88-296212.44-301936.4-306509.47-337515.97-362980.3-383363.03\n"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400: Missing y-header",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Missing yHeader\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.expect(pm.response.text()).to.eql(\"yHeader must not be empty\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://f8jc59emd2.execute-api.us-east-1.amazonaws.com/dev/populations/visualisation/v1?graphTitle=Population%20Growth%20Trends\n&x-header=Year\n&labels=Armidale,Liverpool\n&x-data=2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046\n&y-data=28705.0-28678.184-28723.336-28770.135-28810.877-28858.014-28900.588-28941.607-28980.953-29018.727-29055.068-29214.72-29339.824-29577.436,233912.19-239378.05-253279.83-261590.12-268915.72-276669.6-283950.03-290719.88-296212.44-301936.4-306509.47-337515.97-362980.3-383363.03\n",
+							"protocol": "https",
+							"host": [
+								"f8jc59emd2",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"populations",
+								"visualisation",
+								"v1"
+							],
+							"query": [
+								{
+									"key": "graphTitle",
+									"value": "Population%20Growth%20Trends\n"
+								},
+								{
+									"key": "x-header",
+									"value": "Year\n"
+								},
+								{
+									"key": "labels",
+									"value": "Armidale,Liverpool\n"
+								},
+								{
+									"key": "x-data",
+									"value": "2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046\n"
+								},
+								{
+									"key": "y-data",
+									"value": "28705.0-28678.184-28723.336-28770.135-28810.877-28858.014-28900.588-28941.607-28980.953-29018.727-29055.068-29214.72-29339.824-29577.436,233912.19-239378.05-253279.83-261590.12-268915.72-276669.6-283950.03-290719.88-296212.44-301936.4-306509.47-337515.97-362980.3-383363.03\n"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400: Missing graphTitle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Missing graphTitle\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.expect(pm.response.text()).to.eql(\"graphTitle must not be empty\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://f8jc59emd2.execute-api.us-east-1.amazonaws.com/dev/populations/visualisation/v1?x-header=Year\n&y-header=Population\n&labels=Armidale,Liverpool\n&x-data=2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046\n&y-data=28705.0-28678.184-28723.336-28770.135-28810.877-28858.014-28900.588-28941.607-28980.953-29018.727-29055.068-29214.72-29339.824-29577.436,233912.19-239378.05-253279.83-261590.12-268915.72-276669.6-283950.03-290719.88-296212.44-301936.4-306509.47-337515.97-362980.3-383363.03\n",
+							"protocol": "https",
+							"host": [
+								"f8jc59emd2",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"populations",
+								"visualisation",
+								"v1"
+							],
+							"query": [
+								{
+									"key": "x-header",
+									"value": "Year\n"
+								},
+								{
+									"key": "y-header",
+									"value": "Population\n"
+								},
+								{
+									"key": "labels",
+									"value": "Armidale,Liverpool\n"
+								},
+								{
+									"key": "x-data",
+									"value": "2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046\n"
+								},
+								{
+									"key": "y-data",
+									"value": "28705.0-28678.184-28723.336-28770.135-28810.877-28858.014-28900.588-28941.607-28980.953-29018.727-29055.068-29214.72-29339.824-29577.436,233912.19-239378.05-253279.83-261590.12-268915.72-276669.6-283950.03-290719.88-296212.44-301936.4-306509.47-337515.97-362980.3-383363.03\n"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400: Missing x-header",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Missing x-header\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.expect(pm.response.text()).to.eql(\"xHeader must not be empty\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://f8jc59emd2.execute-api.us-east-1.amazonaws.com/dev/populations/visualisation/v1?graphTitle=Population%20Growth%20Trends\n&y-header=Population\n&labels=Armidale,Liverpool\n&x-data=2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046\n&y-data=28705.0-28678.184-28723.336-28770.135-28810.877-28858.014-28900.588-28941.607-28980.953-29018.727-29055.068-29214.72-29339.824-29577.436,233912.19-239378.05-253279.83-261590.12-268915.72-276669.6-283950.03-290719.88-296212.44-301936.4-306509.47-337515.97-362980.3-383363.03\n",
+							"protocol": "https",
+							"host": [
+								"f8jc59emd2",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"populations",
+								"visualisation",
+								"v1"
+							],
+							"query": [
+								{
+									"key": "graphTitle",
+									"value": "Population%20Growth%20Trends\n"
+								},
+								{
+									"key": "y-header",
+									"value": "Population\n"
+								},
+								{
+									"key": "labels",
+									"value": "Armidale,Liverpool\n"
+								},
+								{
+									"key": "x-data",
+									"value": "2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046\n"
+								},
+								{
+									"key": "y-data",
+									"value": "28705.0-28678.184-28723.336-28770.135-28810.877-28858.014-28900.588-28941.607-28980.953-29018.727-29055.068-29214.72-29339.824-29577.436,233912.19-239378.05-253279.83-261590.12-268915.72-276669.6-283950.03-290719.88-296212.44-301936.4-306509.47-337515.97-362980.3-383363.03\n"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400: Y-Data must be a list of numbers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Y-data must be a list of numbers\", function () {",
+									"    pm.response.to.have.status(400);",
+									"        pm.expect(pm.response.text()).to.eql(\"y-data must be a list of numbers\");",
+									"",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://f8jc59emd2.execute-api.us-east-1.amazonaws.com/dev/populations/visualisation/v1?graphTitle=Population%20Growth%20Trends\n&x-header=Year\n&y-header=Population\n&labels=Armidale,Liverpool\n&x-data=2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046\n&y-data=number-28678.184-28723.336-28770.135-28810.877-28858.014-28900.588-28941.607-28980.953-29018.727-29055.068-29214.72-29339.824-29577.436,233912.19-239378.05-253279.83-261590.12-268915.72-276669.6-283950.03-290719.88-296212.44-301936.4-306509.47-337515.97-362980.3-383363.03\n",
+							"protocol": "https",
+							"host": [
+								"f8jc59emd2",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"populations",
+								"visualisation",
+								"v1"
+							],
+							"query": [
+								{
+									"key": "graphTitle",
+									"value": "Population%20Growth%20Trends\n"
+								},
+								{
+									"key": "x-header",
+									"value": "Year\n"
+								},
+								{
+									"key": "y-header",
+									"value": "Population\n"
+								},
+								{
+									"key": "labels",
+									"value": "Armidale,Liverpool\n"
+								},
+								{
+									"key": "x-data",
+									"value": "2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046\n"
+								},
+								{
+									"key": "y-data",
+									"value": "number-28678.184-28723.336-28770.135-28810.877-28858.014-28900.588-28941.607-28980.953-29018.727-29055.068-29214.72-29339.824-29577.436,233912.19-239378.05-253279.83-261590.12-268915.72-276669.6-283950.03-290719.88-296212.44-301936.4-306509.47-337515.97-362980.3-383363.03\n"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400: Labels and yData length",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Labels and y-Data length\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    pm.expect(pm.response.text()).to.eql(\"labels and yData must have the same length\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://f8jc59emd2.execute-api.us-east-1.amazonaws.com/dev/populations/visualisation/v1?graphTitle=Population%20Growth%20Trends\n&x-header=Year\n&y-header=Population\n&labels=Liverpool\n&x-data=2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046\n&y-data=28705.0-28678.184-28723.336-28770.135-28810.877-28858.014-28900.588-28941.607-28980.953-29018.727-29055.068-29214.72-29339.824-29577.436,233912.19-239378.05-253279.83-261590.12-268915.72-276669.6-283950.03-290719.88-296212.44-301936.4-306509.47-337515.97-362980.3-383363.03\n",
+							"protocol": "https",
+							"host": [
+								"f8jc59emd2",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"populations",
+								"visualisation",
+								"v1"
+							],
+							"query": [
+								{
+									"key": "graphTitle",
+									"value": "Population%20Growth%20Trends\n"
+								},
+								{
+									"key": "x-header",
+									"value": "Year\n"
+								},
+								{
+									"key": "y-header",
+									"value": "Population\n"
+								},
+								{
+									"key": "labels",
+									"value": "Liverpool\n"
+								},
+								{
+									"key": "x-data",
+									"value": "2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2036,2041,2046\n"
+								},
+								{
+									"key": "y-data",
+									"value": "28705.0-28678.184-28723.336-28770.135-28810.877-28858.014-28900.588-28941.607-28980.953-29018.727-29055.068-29214.72-29339.824-29577.436,233912.19-239378.05-253279.83-261590.12-268915.72-276669.6-283950.03-290719.88-296212.44-301936.4-306509.47-337515.97-362980.3-383363.03\n"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
