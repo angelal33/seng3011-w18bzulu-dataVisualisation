@@ -15,7 +15,7 @@ def home():
     return jsonify(message="Hello from Flask on AWS Lambda!")
 
 
-@app.route("/population/visualisation/v1", methods=["GET"])
+@app.route("/population/visualisation/v1", methods=["POST"])
 def visualisation():
     graphTitle = request.args.get('graphTitle')
     xHeader = request.args.get('x-header')
@@ -42,7 +42,7 @@ def visualisation():
         "headers": {"Content-Type": "application/json"},
     }
 
-@app.route("/populations/visualisation/v1", methods=["GET"])
+@app.route("/populations/visualisation/v1", methods=["POST"])
 def populations_visualisation():
     graphTitle = request.args.get("graphTitle")
     xHeader = request.args.get("x-header")
