@@ -26,7 +26,7 @@ def visualisation():
         yData = [float(item) for item in yData]
     except (ValueError, TypeError, AttributeError):
         return Response("y-data must be a list of numbers", status=400)
-    
+
     try:
         image_base64 = pop_vis.bar_chart_visualisation(
         graphTitle, xHeader, yHeader, xData, yData
@@ -35,7 +35,7 @@ def visualisation():
         return Response(str(e), status=400)
     except Exception as e:
         return Response(f"An error occurred: {str(e)}", status=500)
-    
+
     return {
         "statusCode": 200,
         "body": json.dumps({"image": image_base64}),
@@ -62,7 +62,7 @@ def populations_visualisation():
         return Response(str(e), status=400)
     except Exception as e:
         return Response(f"An unexpected error occurred: {str(e)}", status=500)
-    
+
     return {
         "statusCode": 200,
         "body": json.dumps({"image": image_base64}),

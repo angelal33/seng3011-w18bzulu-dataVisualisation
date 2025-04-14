@@ -92,9 +92,9 @@ def test_visualisation_mismatched_data_lengths(client):
         "/populations/visualisation/v1",
         query_string={
             "graphTitle": "Mismatched Data",
-            "x-header": "X", 
-            "y-header": "Y", 
-            "x-data": ["2022", "2023"], 
+            "x-header": "X",
+            "y-header": "Y",
+            "x-data": ["2022", "2023"],
             "y-data": [1000.0]
         }
     )
@@ -106,9 +106,9 @@ def test_visualisation_bad_data(client):
         "/populations/visualisation/v1",
         query_string={
             "graphTitle": "Mismatched Data",
-            "x-header": "X", 
-            "y-header": "Y", 
-            "x-data": [2022, 2023], 
+            "x-header": "X",
+            "y-header": "Y",
+            "x-data": [2022, 2023],
             "y-data": [1000.0]
         }
     )
@@ -118,9 +118,9 @@ def test_visualisation_bad_data(client):
         "/populations/visualisation/v1",
         query_string={
             "graphTitle": "Mismatched Data",
-            "x-header": "X", 
-            "y-header": "Y", 
-            "x-data": ["2022", "2023"], 
+            "x-header": "X",
+            "y-header": "Y",
+            "x-data": ["2022", "2023"],
             "y-data": ["1000.0", "2000.0"]
         }
     )
@@ -132,9 +132,9 @@ def test_visualisation_empty_data(client):
         "/populations/visualisation/v1",
         query_string={
             "graphTitle": "Mismatched Data",
-            "x-header": "X", 
-            "y-header": "Y", 
-            "x-data": [], 
+            "x-header": "X",
+            "y-header": "Y",
+            "x-data": [],
             "y-data": []
         }
     )
