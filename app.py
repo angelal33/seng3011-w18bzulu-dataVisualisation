@@ -10,9 +10,9 @@ def split_data(data):
         return data.split(",")
     return []
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 def home():
-    return jsonify(message="Hello from Flask on AWS Lambda!")
+    return jsonify(message="Visualisation microservice is active!")
 
 
 @app.route("/population/visualisation/v1", methods=["POST"])
