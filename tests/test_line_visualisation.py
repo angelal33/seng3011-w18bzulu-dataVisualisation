@@ -135,7 +135,7 @@ def test_visualisation_too_many_yData():
         )
 
 def test_visualisation_invalid_labels():
-    """Test with invalid labels.""" 
+    """Test with invalid labels."""
     with pytest.raises(ValueError):
         multi_line_chart_visualisation(
             "Invalid Labels",

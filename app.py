@@ -10,12 +10,12 @@ def split_data(data):
         return data.split(",")
     return []
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 def home():
-    return jsonify(message="Hello from Flask on AWS Lambda!")
+    return jsonify(message="Visualisation microservice is active!")
 
 
-@app.route("/population/visualisation/v1", methods=["GET"])
+@app.route("/population/visualisation/v1", methods=["POST"])
 def visualisation():
     graphTitle = request.args.get('graphTitle')
     xHeader = request.args.get('x-header')
@@ -26,7 +26,7 @@ def visualisation():
         yData = [float(item) for item in yData]
     except (ValueError, TypeError, AttributeError):
         return Response("y-data must be a list of numbers", status=400)
-    
+
     try:
         image_base64 = pop_vis.bar_chart_visualisation(
         graphTitle, xHeader, yHeader, xData, yData
@@ -35,14 +35,14 @@ def visualisation():
         return Response(str(e), status=400)
     except Exception as e:
         return Response(f"An error occurred: {str(e)}", status=500)
-    
+
     return {
         "statusCode": 200,
         "body": json.dumps({"image": image_base64}),
         "headers": {"Content-Type": "application/json"},
     }
 
-@app.route("/populations/visualisation/v1", methods=["GET"])
+@app.route("/populations/visualisation/v1", methods=["POST"])
 def populations_visualisation():
     graphTitle = request.args.get("graphTitle")
     xHeader = request.args.get("x-header")
@@ -62,7 +62,7 @@ def populations_visualisation():
         return Response(str(e), status=400)
     except Exception as e:
         return Response(f"An unexpected error occurred: {str(e)}", status=500)
-    
+
     return {
         "statusCode": 200,
         "body": json.dumps({"image": image_base64}),

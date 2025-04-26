@@ -57,7 +57,7 @@ def sample_multi():
     return data
 
 def test_single_suburb(client, sample_single):
-    resp = client.get(
+    resp = client.post(
       "/population/visualisation/v1",
       query_string=sample_single
     )
@@ -72,7 +72,7 @@ def test_single_suburb(client, sample_single):
         pytest.fail("Result is not valid base64-encoded data.")
 
 def test_multiple_suburb(client, sample_multi):
-    resp = client.get(
+    resp = client.post(
       "/populations/visualisation/v1",
       query_string=sample_multi
     )
@@ -88,13 +88,13 @@ def test_multiple_suburb(client, sample_multi):
 
 def test_visualisation_mismatched_data_lengths(client):
     """Test with mismatched x and y data lengths."""
-    resp = client.get(
+    resp = client.post(
         "/populations/visualisation/v1",
         query_string={
             "graphTitle": "Mismatched Data",
-            "x-header": "X", 
-            "y-header": "Y", 
-            "x-data": ["2022", "2023"], 
+            "x-header": "X",
+            "y-header": "Y",
+            "x-data": ["2022", "2023"],
             "y-data": [1000.0]
         }
     )
@@ -102,25 +102,25 @@ def test_visualisation_mismatched_data_lengths(client):
 
 def test_visualisation_bad_data(client):
     """Test with mismatched x and y data lengths."""
-    resp = client.get(
+    resp = client.post(
         "/populations/visualisation/v1",
         query_string={
             "graphTitle": "Mismatched Data",
-            "x-header": "X", 
-            "y-header": "Y", 
-            "x-data": [2022, 2023], 
+            "x-header": "X",
+            "y-header": "Y",
+            "x-data": [2022, 2023],
             "y-data": [1000.0]
         }
     )
     assert resp.status_code == 400
 
-    resp = client.get(
+    resp = client.post(
         "/populations/visualisation/v1",
         query_string={
             "graphTitle": "Mismatched Data",
-            "x-header": "X", 
-            "y-header": "Y", 
-            "x-data": ["2022", "2023"], 
+            "x-header": "X",
+            "y-header": "Y",
+            "x-data": ["2022", "2023"],
             "y-data": ["1000.0", "2000.0"]
         }
     )
@@ -128,13 +128,13 @@ def test_visualisation_bad_data(client):
 
 def test_visualisation_empty_data(client):
     """Test with mismatched x and y data lengths."""
-    resp = client.get(
+    resp = client.post(
         "/populations/visualisation/v1",
         query_string={
             "graphTitle": "Mismatched Data",
-            "x-header": "X", 
-            "y-header": "Y", 
-            "x-data": [], 
+            "x-header": "X",
+            "y-header": "Y",
+            "x-data": [],
             "y-data": []
         }
     )
